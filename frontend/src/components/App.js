@@ -34,16 +34,18 @@ function App() {
 
   React.useEffect(() => {
     tokenCheck();
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([profile, initialCards]) => {
-        setCurrentUser(profile);
-        setCards(initialCards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (loggedIn) {
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([profile, initialCards]) => {
+          setCurrentUser(profile);
+          setCards(initialCards);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [loggedIn]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)

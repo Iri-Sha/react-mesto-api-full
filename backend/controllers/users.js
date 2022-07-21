@@ -130,7 +130,12 @@ module.exports.login = (req, res, next) => {
         { expiresIn: '7d' },
       );
       res
-        .cookie('jwt', token, { httpOnly: true, maxAge: 3600000 * 24 * 7, sameSite: 'none', secure: true })
+        .cookie('jwt', token, {
+          httpOnly: true,
+          maxAge: 3600000 * 24 * 7,
+          sameSite: 'none',
+          secure: true,
+        })
         .send({ token });
     })
     .catch((err) => next(err));
